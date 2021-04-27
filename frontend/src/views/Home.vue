@@ -33,7 +33,7 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 3px;
   color: white;
-  margin-left:8rem
+  margin-left:7rem
 }
 .shui{
 margin-top:6rem;

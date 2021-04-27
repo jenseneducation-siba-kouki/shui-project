@@ -1,26 +1,23 @@
 <template>
   <div class="register">
+    <h1>Register</h1>
     <form @submit.prevent="handleSubmit">
       <input type="text"
-       v-model="firstName" 
+       v-model="log.firstName" 
        placeholder="firstName" />
 
        <input type="text"
-       v-model="lastName" 
+       v-model="log.lastName" 
        placeholder="lastName" />
 
        <input type="email"
-       v-model="email" 
+       v-model="log.email" 
        placeholder="email" />
 
       <input type="password" 
-      v-model="password" 
+      v-model="log.password" 
       placeholder="Password" />
 
-      <input type="passwordConfirm"
-        v-model="passwordConfirm"
-        placeholder="passwordConfirm"
-      />
       <button>Register</button>
       <router-link to="/login">Already have an account?</router-link>
     </form>  
@@ -29,30 +26,31 @@
 
 <script>
 import axios from "axios"
+
 export default {
    name: "register",
    data() {
      return{
+       log:{
        firstName:'',
        lastName:'',
        email:'',
        password:'',
-       passwordConfirm:'',
+       }
+     
      }
    },
    methods:{
     async handleSubmit(){
-      const response = await axios.post('register', {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        password: this.password,
-        passwordConfirm: this.passwordConfirm
-      });
-      console.log(response)
-      // this.$router.push('/login')
+      const response = await axios.post(`${process.env.VUE_APP_API_URL}/api/register`,
+      this.log
+      );
+      if(response.data.token){
+        sessionStorage.setItem("auth", response.data.token);
+        
     }
    }
+}
 }
 </script>
 
@@ -61,7 +59,7 @@ export default {
   padding: 4em 4em 2em;
   max-width: 400px;
   margin: auto;
-  height: 29rem;
+  height: 22rem;
 }
   input {
     display: block;
@@ -76,7 +74,11 @@ export default {
   color: #fff;
   text-align: center;
   display: block;
-
+}
+h1{
+  padding:20px;
+  text-align: center;
+  color: #fff;
 }
 
 
