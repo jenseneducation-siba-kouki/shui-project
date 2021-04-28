@@ -8,6 +8,8 @@
       v-model="log.password" 
       placeholder="password" />
       <button>Log in</button>
+      <router-link to="/Flow">Log</router-link>
+
       </form>
   </div>
 </template>
